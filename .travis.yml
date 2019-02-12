@@ -1,0 +1,42 @@
+language: node_js
+node_js:
+  - "8"
+
+install:
+  - yarn install
+
+script:
+  - yarn build
+
+before_deploy:
+  - pip install --user awscli
+  - |
+    mkdir -p lambda lambdazip
+    for file in .next/serverless/pages/*; do
+      page=$(basename "${file%.*}");
+      cp -R .lambda/ "lambda/${page}/";
+      cp "${file}" "lambda/${page}/page.js";
+      cd "lambda/${page}/";
+      zip -r "../../lambdazip/${page}.zip" ./lambda.js ./node_modules ./page.js;
+      cd ../../;
+    done
+
+deploy:
+  - provider: script
+    skip_cleanup: true
+    script:
+      - >-
+        aws s3 sync --delete lambdazip/ "s3://${STAGING_DEPLOYMENT_BUCKET}/master/"
+        && aws s3 sync --delete static/ "s3://${STAGING_ASSET_BUCKET}/master/static/"
+        && aws s3 sync --delete .next/static/ "s3://${STAGING_ASSET_BUCKET}/master/_next/static/"
+    on:
+      branch: master
+  - provider: script
+    skip_cleanup: true
+    script:
+      - >-
+        aws s3 sync --delete lambdazip/ "s3://${PROD_DEPLOYMENT_BUCKET}/${TRAVIS_TAG}/"
+        && aws s3 sync --delete static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/static/"
+        && aws s3 sync --delete .next/static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/_next/static/"
+    on:
+      tags: true
