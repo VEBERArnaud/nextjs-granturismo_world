@@ -1,0 +1,16 @@
+{
+  "name": "granturismo.world",
+  "version": "0.0.1-alpha.1",
+  "author": "VEBER Arnaud <https://github.com/VEBERArnaud>",
+  "scripts": {
+    "dev": "next",
+    "build": "next build",
+    "start": "next start"
+  },
+  "dependencies": {
+    "next": "^8.0.0",
+    "react": "^16.8.1",
+    "react-dom": "^16.8.1"
+  },
+  "license": "MIT"
+}
