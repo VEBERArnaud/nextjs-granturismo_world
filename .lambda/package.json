@@ -1,0 +1,8 @@
+{
+  "name": "lambda-granturismo_world",
+  "version": "1.0.0",
+  "license": "MIT",
+  "dependencies": {
+    "aws-serverless-express": "^3.3.5"
+  }
+}

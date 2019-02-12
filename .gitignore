@@ -11,6 +11,10 @@
 /dist
 /.next
 
+# deployment
+/lambda
+/lambdazip
+
 # misc
 .DS_Store
 .env
