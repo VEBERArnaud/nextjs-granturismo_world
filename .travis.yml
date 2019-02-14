@@ -5,6 +5,14 @@ node_js:
 install:
   - yarn install
 
+before_script:
+  - |
+    if [ -z "${TRAVIS_TAG}" ]; then
+      export ASSET_PREFIX="${STAGING_ASSET_PREFIX}/${TRAVIS_BRANCH}"
+    else
+      export ASSET_PREFIX="${PROD_ASSET_PREFIX}/${TRAVIS_TAG}"
+    fi
+
 script:
   - yarn build
 
@@ -26,9 +34,9 @@ deploy:
     skip_cleanup: true
     script:
       - >-
-        aws s3 sync --delete lambdazip/ "s3://${STAGING_DEPLOYMENT_BUCKET}/master/"
-        && aws s3 sync --delete static/ "s3://${STAGING_ASSET_BUCKET}/master/static/"
-        && aws s3 sync --delete .next/static/ "s3://${STAGING_ASSET_BUCKET}/master/_next/static/"
+        aws s3 sync --delete lambdazip/ "s3://${STAGING_DEPLOYMENT_BUCKET}/${TRAVIS_BRANCH}/"
+        && aws s3 sync --delete static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/static/"
+        && aws s3 sync --delete .next/static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/_next/static/"
     on:
       branch: master
   - provider: script
