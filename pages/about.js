@@ -3,13 +3,13 @@ import Link from 'next/link'
 import Head from '../components/head'
 import Nav from '../components/nav'
 
-const Home = () => (
+const About = () => (
   <div>
-    <Head title="Home" />
+    <Head title="About" />
     <Nav />
 
-    <h1 className="title">Welcome to Gran Turismo World!</h1>
+    <h1 className="title">About</h1>
   </div>
 )
 
-export default Home
+export default About
