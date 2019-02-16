@@ -34,17 +34,17 @@ deploy:
     skip_cleanup: true
     script:
       - >-
-        aws s3 sync --delete lambdazip/ "s3://${STAGING_DEPLOYMENT_BUCKET}/${TRAVIS_BRANCH}/"
-        && aws s3 sync --delete static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/static/"
-        && aws s3 sync --delete .next/static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/_next/static/"
+        aws s3 sync lambdazip/ "s3://${STAGING_DEPLOYMENT_BUCKET}/${TRAVIS_BRANCH}/" --delete
+        && aws s3 sync static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/static/" --delete --cache-control max-age=31536000,public
+        && aws s3 sync .next/static/ "s3://${STAGING_ASSET_BUCKET}/${TRAVIS_BRANCH}/_next/static/" --delete --cache-control max-age=31536000,public
     on:
       branch: master
   - provider: script
     skip_cleanup: true
     script:
       - >-
-        aws s3 sync --delete lambdazip/ "s3://${PROD_DEPLOYMENT_BUCKET}/${TRAVIS_TAG}/"
-        && aws s3 sync --delete static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/static/"
-        && aws s3 sync --delete .next/static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/_next/static/"
+        aws s3 sync lambdazip/ "s3://${PROD_DEPLOYMENT_BUCKET}/${TRAVIS_TAG}/" --delete
+        && aws s3 sync static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/static/" --delete --cache-control max-age=31536000,public
+        && aws s3 sync .next/static/ "s3://${PROD_ASSET_BUCKET}/${TRAVIS_TAG}/_next/static/" --delete --cache-control max-age=31536000,public
     on:
       tags: true
