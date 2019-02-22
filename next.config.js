@@ -1,6 +1,8 @@
+const withCSS = require('@zeit/next-css');
+
 const assetPrefix = process.env.ASSET_PREFIX || '';
 
-module.exports = {
+module.exports = withCSS({
   target: 'serverless',
   assetPrefix: assetPrefix,
   env: {
@@ -14,4 +16,4 @@ module.exports = {
 
     return config
   }
-}
+});

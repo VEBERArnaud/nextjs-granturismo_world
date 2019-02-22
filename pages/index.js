@@ -1,15 +1,45 @@
 import React from 'react'
 import Link from 'next/link'
-import Head from '../components/head'
-import Nav from '../components/nav'
+import { Navbar, NavbarBrand, NavbarToggler, Collapse, Nav, NavItem, NavLink } from 'reactstrap';
 
-const Home = () => (
-  <div>
-    <Head title="Home" />
-    <Nav />
+import 'bootstrap/dist/css/bootstrap.min.css';
 
-    <h1 className="title">Welcome to Gran Turismo World!</h1>
-  </div>
-)
+export default class Home extends React.Component {
+  constructor(props) {
+    super(props);
 
-export default Home
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
+
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  render() {
+    return (
+      <div>
+        <Navbar color="dark" expand="md" dark >
+          <Link href={{ pathname: '/' }} passHref>
+            <NavbarBrand>GranTurismo.World</NavbarBrand>
+          </Link>
+          <NavbarToggler onClick={this.toggle} />
+          <Collapse isOpen={this.state.isOpen} navbar>
+            <Nav className="ml-auto" navbar>
+              <NavItem>
+                <Link href={{ pathname: '/about' }} passHref>
+                  <NavLink>About</NavLink>
+                </Link>
+              </NavItem>
+            </Nav>
+          </Collapse>
+        </Navbar>
+        <h1>pages/index</h1>
+      </div>
+    );
+  }
+}
