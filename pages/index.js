@@ -28,6 +28,7 @@ export default class Home extends React.Component {
           <title>index</title>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <meta name="description" content="granturismo world homepage" />
         </Head>
         <Navbar color="dark" expand="md" dark >
           <Container>
