@@ -35,7 +35,7 @@ export default class Home extends React.Component {
             <Link href={{ pathname: '/' }} passHref>
               <NavbarBrand>GranTurismo.World</NavbarBrand>
             </Link>
-            <NavbarToggler onClick={this.toggle} />
+            <NavbarToggler onClick={this.toggle} aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation" />
             <Collapse isOpen={this.state.isOpen} navbar>
               <Nav className="ml-auto" navbar>
                 <NavItem>
