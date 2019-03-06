@@ -28,6 +28,7 @@ export default class About extends React.Component {
           <title>about</title>
           <meta charSet="utf-8" />
           <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no" />
+          <meta name="description" content="about granturismo world" />
         </Head>
         <Navbar color="dark" expand="md" dark >
           <Container>
