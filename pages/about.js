@@ -7,6 +7,10 @@ import { Container, Row, Col, Jumbotron } from 'reactstrap';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 export default class About extends React.Component {
+  static async getInitialProps({ req }) {
+    return { lambda: true }
+  }
+
   render() {
     return (
       <div>
